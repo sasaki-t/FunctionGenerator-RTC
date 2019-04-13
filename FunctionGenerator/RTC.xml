@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:TakeshiSasaki:generic:FunctionGenerator:1.2.0" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="FunctionGenerator" rtc:updateDate="2019-04-09T20:13:41+09:00" rtc:creationDate="2019-04-09T20:13:41+09:00" rtc:version="1.2.0" rtc:vendor="TakeshiSasaki" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Function generator compornent for generating input data" rtc:category="generic" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="FunctionGenerator">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="佐々木毅 (Takeshi SASAKI) &lt;br/&gt;sasaki-t(_at_)ieee.org" rtcDoc:algorithm="" rtcDoc:inout="InPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;iOctetSeqData/TimedOctetSeq/ファイルに保存するoctet型数値列データ。&lt;br/&gt;iShortSeqData/TimedShortSeq/ファイルに保存するshort型整数値列データ。&lt;br/&gt;iLongSeqData/TimedLongSeq/ファイルに保存するlong型整数値列データ。&lt;br/&gt;iFloatSeqData/TimedFloatSeq/ファイルに保存するfloat型実数値列データ。&lt;br/&gt;iDoubleSeqData/TimedDoubleSeq/ファイルに保存するdouble型実数値列データ。&lt;br/&gt;OutPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;oOctetSeqData/TimedOctetSeq/octet型数値列の出力データ。&lt;br/&gt;oShortSeqData/TimedShortSeq/short型整数値列の出力データ。&lt;br/&gt;oLongSeqData/TimedLongSeq/long型整数値列の出力データ。&lt;br/&gt;oFloatSeqData/TimedFloatSeq/float型実数値列の出力データ。&lt;br/&gt;oDoubleSeqData/TimedDoubleSeq/double型実数値列の出力データ。" rtcDoc:description="数学関数や事前に保存したデータ列を指定することで様々なパターンの入力データを生成することが可能な入力データ生成コンポーネント。&lt;br/&gt;コンフィギュレーションパラメータから出力したいデータを数学関数によって指定することが可能。&lt;br/&gt;また、InPortに入力されたデータを記録する機能を備えているため、予め保存したデータを読み込んで出力することも可能。"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="初期化を行う。"/>
+        </rtc:OnActivated>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="終了処理を行う。"/>
+        </rtc:OnDeactivated>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="終了処理を行う。"/>
+        </rtc:OnAborting>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="各種パラメータの読込みと設定を行う。&lt;br/&gt;InPortに送られてきたデータを、ConfigurationのsaveFileModeの形式にしたがって、saveFileNameに指定されたファイルに保存する。&lt;br/&gt;ConfigurationのoutputFunctionOrLoadFileNameに指定された関数またはファイルからデータを生成し、OutPortに出力する。"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0.0" rtc:type="double" rtc:name="xMin">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="変数xの最小値。" rtcDoc:defaultValue="0.0" rtcDoc:dataname="xMin"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="10.0" rtc:type="double" rtc:name="xMax">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="変数xの最大値。" rtcDoc:defaultValue="10.0" rtcDoc:dataname="xMax"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1.0" rtc:type="double" rtc:name="xDelta">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="変数xの増加量。" rtcDoc:defaultValue="10.0" rtcDoc:dataname="xDelta"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0.0" rtc:type="double" rtc:name="tMin">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="変数tの最小値。" rtcDoc:defaultValue="0.0" rtcDoc:dataname="tMin"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="10.0" rtc:type="double" rtc:name="tMax">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="変数tの最大値。" rtcDoc:defaultValue="10.0" rtcDoc:dataname="tMax"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1.0" rtc:type="double" rtc:name="tDelta">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="変数tの増加量。" rtcDoc:defaultValue="1.0" rtcDoc:dataname="tDelta"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="a" rtc:type="char" rtc:name="saveFileMode">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>a</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>w</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="入力データを保存するときのモード。&lt;br/&gt;a:既存のファイルに追記。&lt;br/&gt;w:アクティブ化時またはアクティブ化後のsaveFileMode再設定時に既存のファイルを上書き。" rtcDoc:defaultValue="a" rtcDoc:dataname="saveFileMode"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="*" rtc:type="string" rtc:name="saveFileName">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="" rtcDoc:defaultValue="*" rtcDoc:dataname="saveFileName"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="*" rtc:type="string" rtc:name="outputFunctionOrLoadFileName">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="出力する関数または読み込むファイル名。" rtcDoc:defaultValue="*" rtcDoc:dataname="outputFunctionOrLoadFileName"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedOctetSeq" rtc:name="iOctetSeqData" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedOctetSeq" rtcDoc:description="ファイルに保存するoctet型数値列データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedShortSeq" rtc:name="iShortSeqData" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedShortSeq" rtcDoc:description="ファイルに保存するshort型整数値列データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedLongSeq" rtc:name="iLongSeqData" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedLongSeq" rtcDoc:description="ファイルに保存するlong型整数値列データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedFloatSeq" rtc:name="iFloatSeqData" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedFloatSeq" rtcDoc:description="ファイルに保存するfloat型実数値列データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedDoubleSeq" rtc:name="iDoubleSeqData" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedDoubleSeq" rtcDoc:description="ファイルに保存するdouble型実数値列データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedOctetSeq" rtc:name="oOctetSeqData" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedOctetSeq" rtcDoc:description="octet型数値列の出力データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedShortSeq" rtc:name="oShortSeqData" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedShortSeq" rtcDoc:description="short型整数値列の出力データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedLongSeq" rtc:name="oLongSeqData" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedLongSeq" rtcDoc:description="long型整数値列の出力データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedFloatSeq" rtc:name="oFloatSeqData" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedFloatSeq" rtcDoc:description="float型実数値列の出力データ。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="C:\Program Files\OpenRTM-aist\1.2.0\rtm\idl\BasicDataType.idl" rtc:type="RTC::TimedDoubleSeq" rtc:name="oDoubleSeqData" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="データに依存" rtcDoc:semantics="" rtcDoc:number="データに依存" rtcDoc:type="TimedDoubleSeq" rtcDoc:description="double型実数値列の出力データ。"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

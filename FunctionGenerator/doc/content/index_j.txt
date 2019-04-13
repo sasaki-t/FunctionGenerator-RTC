@@ -1,0 +1,148 @@
+﻿FunctionGenerator - 日本語
+=======================
+
+
+はじめに
+========
+
+クラスについては、 `APIドキュメンテーション`_ に参照してください。
+
+.. _`APIドキュメンテーション`:
+   doxygen/html/index.html
+
+条件
+====
+
+FunctionGeneratorはOpenRTM-aist 1.0.0以上のC++版が必要です。
+
+FunctionGeneratorは CMake_ を使います。CMake 2.8以上が必要です。
+
+.. _CMAke:
+   http://www.cmake.org
+
+インストール
+============
+
+インストーラ
+------------
+
+Windowsのユーザはインストーラパッケージを使用してコンポーネントをインストール
+することができます。これはコンポーネント及びそのすべての必要なライブラリを
+インストールします。Windowsでインストールする場合、インストーラの使用を推奨してます。
+
+- インストーラをダウンロードしてください。
+- インストールを始めるためにインストーラをダブルクリックしてください。
+- 指示にしたがってコンポーネントをインストールしてください。
+- 環境変数の変更を適用するため、コンポーネントを使用する前にコンピューターを
+  再起動する必要があるかもしれません。
+
+FunctionGeneratorは ``FunctionGeneratorComp`` の実行をダブルクリックして実行することが
+できます。あるいは、 ``FunctionGenerator`` を初期化関数の ``FunctionGeneratorInit`` を利用して、
+マネージャにロードすることができます。
+
+ソースから
+----------
+
+ソースを使う場合は以下の手順でインストールしてください。
+
+- ソースをダウンロードして解凍してください::
+
+    tar -xvzf FunctionGenerator-1.0.0.tar.gz
+
+- 解凍されたフォルダに入ってください::
+
+    cd FunctionGenerator-1.0.0
+
+- ``build`` フォルダを作ってください::
+
+    mkdir build
+
+- `` build`` フォルダに入ってください::
+
+    cd build
+
+- CMakeを実行してください::
+
+    cmake ../
+
+- エラーが出無い場合、makeを実行してください::
+
+    make
+
+- ``make install`` でコンポーネントをインストールしてください。選択された
+  インストール場所に書き込み権限があるかを確認してください::
+
+  ``make install``
+
+- インストールする場所はccmakeを実行して ``CMAKE_INSTALL_PREFIX`` を
+  設定することで変更が可能です。
+
+    ccmake ../
+
+ここまでで、コンポーネントが使えるようになりました。コンフィグレーションは次のセクションを
+参照してください。
+
+FunctionGeneratorは ``FunctionGeneratorComp`` を実行（ ``${prefix}/components/bin`` に
+インストールされます）することでスタンドアローンモードで実行することができます。
+あるいは、 ``libFunctionGenerator.so`` を初期化関数の ``FunctionGeneratorInit`` を利用して、
+マネージャにロードすることができます。このライブラリは ``${prefix}/components/lib`` 
+または ``${prefix}/components/lib64`` にインストールされます。
+
+
+コンフィグレーション
+====================
+
+使えるコンフィグレーションパラメータは以下のテーブルを参照
+してください。
+
+================ ================== ================ ====
+パラメータ       データ型           デフォルト値     意味
+================ ================== ================ ====
+xMin             double             0.0              変数xの最小値。
+xMax             double             10.0             変数xの最大値。
+xDelta           double             1.0              変数xの増加量。
+tMin             double             0.0              変数tの最小値。
+tMax             double             10.0             変数tの最大値。
+tDelta           double             1.0              変数tの増加量。
+saveFileMode     char               a                入力データを保存するときのモード。<br/>a:既存のファイルに追記。<br/>w:アクティブ化時またはアクティブ化後のsaveFileMode再設定時に既存のファイルを上書き。
+saveFileName     string             *                
+outputFunctionOrLoadFileName string             *                出力する関数または読み込むファイル名。
+================ ================== ================ ====
+
+ポート
+======
+
+コンポーネントによって提供されるポートは以下のテーブルで述べられています。
+
+=============== =========== ============================== ====
+ポート名        ポート型    データ型                       意味
+=============== =========== ============================== ====
+iOctetSeqData   InPort      RTC::TimedOctetSeq             ファイルに保存するoctet型数値列データ。
+iShortSeqData   InPort      RTC::TimedShortSeq             ファイルに保存するshort型整数値列データ。
+iLongSeqData    InPort      RTC::TimedLongSeq              ファイルに保存するlong型整数値列データ。
+iFloatSeqData   InPort      RTC::TimedFloatSeq             ファイルに保存するfloat型実数値列データ。
+iDoubleSeqData  InPort      RTC::TimedDoubleSeq            ファイルに保存するdouble型実数値列データ。
+oOctetSeqData   OutPort     RTC::TimedOctetSeq             octet型数値列の出力データ。
+oShortSeqData   OutPort     RTC::TimedShortSeq             short型整数値列の出力データ。
+oLongSeqData    OutPort     RTC::TimedLongSeq              long型整数値列の出力データ。
+oFloatSeqData   OutPort     RTC::TimedFloatSeq             float型実数値列の出力データ。
+oDoubleSeqData  OutPort     RTC::TimedDoubleSeq            double型実数値列の出力データ。
+=============== =========== ============================== ====
+
+例
+==
+
+例のrtc.confファイルは ``${prefix}/components/share/FunctionGenerator/examples/conf/``
+フォルダにインストールされています。
+
+Changelog
+=========
+
+
+License
+=======
+
+このソフトウェアは産業技術総合研究所で開発されています。承認番号はH23PRO-????
+です。このソフトウェアは Lesser General Public License (LGPL) ライセンスとして
+公開されてます。COPYING.LESSER を参照してください。
+
