@@ -1,10 +1,6 @@
 #include <cmath>
 #include <limits>
 
-#if defined(_WIN32) || defined(_WIN64)
-#include <cfloat>
-#endif
-
 #include "convert.h"
 
 // **************************************************
@@ -107,17 +103,9 @@ float toFloat(double val){
 	const float ninf = -std::numeric_limits<float>::infinity(); //-Infinity for single precisition floating-point data: 0xff800000
 
 	//check if val is a special number
-#if defined(_WIN32) || defined(_WIN64)
-	if(_isnan(val)!=0){ //NaN
-#else
-	if(std::isnan(val)!=0){ //NaN
-#endif
+	if(std::isnan(val)){ //NaN
 		return nan;
-#if defined(_WIN32) || defined(_WIN64)
-	}else if(_finite(val)==0){ //infinity
-#else
-	}else if(std::isinf(val)!=0){ //infinity
-#endif
+	}else if(std::isinf(val)){ //infinity
 		if(val>0){ //positive
 			return pinf;
 		}else{ //negative
@@ -148,17 +136,9 @@ double convertIntVal(double val, double ubound, double lbound, double nan, doubl
 	const double epsilon = 1.0e-12;
 
 	//check if val is a special number
-#if defined(_WIN32) || defined(_WIN64)
-	if(_isnan(val)!=0){ //NaN
-#else
-	if(std::isnan(val)!=0){ //NaN
-#endif
+	if(std::isnan(val)){ //NaN
 		return nan;
-#if defined(_WIN32) || defined(_WIN64)
-	}else if(_finite(val)==0){ //infinity
-#else
-	}else if(std::isinf(val)!=0){ //infinity
-#endif
+	}else if(std::isinf(val)){ //infinity
 		if(val>0){ //positive
 			return pinf;
 		}else{ //negative

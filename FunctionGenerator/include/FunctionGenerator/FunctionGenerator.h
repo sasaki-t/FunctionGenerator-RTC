@@ -1,14 +1,14 @@
 ﻿// -*- C++ -*-
+// <rtc-template block="description">
 /*!
  * @file  FunctionGenerator.h
  * @brief Function generator compornent for generating input data
- * @date  $Date$
  *
  * @author 佐々木毅 (Takeshi SASAKI)
  * sasaki-t(_at_)ieee.org
  *
- * $Id$
  */
+// </rtc-template>
 
 #ifndef FUNCTIONGENERATOR_H
 #define FUNCTIONGENERATOR_H
@@ -38,18 +38,14 @@
 
 // </rtc-template>
 
-// Service Consumer stub headers
-// <rtc-template block="port_stub_h">
-// </rtc-template>
-
 #include <rtm/Manager.h>
 #include <rtm/DataFlowComponentBase.h>
 #include <rtm/CorbaPort.h>
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
 
-using namespace RTC;
 
+// <rtc-template block="component_description">
 /*!
  * @class FunctionGenerator
  * @brief Function generator compornent for generating input data
@@ -82,6 +78,7 @@ using namespace RTC;
  * oDoubleSeqData/TimedDoubleSeq/double型実数値列の出力データ。
  *
  */
+// </rtc-template>
 class FunctionGenerator
   : public RTC::DataFlowComponentBase
 {
@@ -95,7 +92,7 @@ class FunctionGenerator
   /*!
    * @brief destructor
    */
-  ~FunctionGenerator();
+  ~FunctionGenerator() override;
 
   // <rtc-template block="public_attribute">
   
@@ -105,32 +102,30 @@ class FunctionGenerator
   
   // </rtc-template>
 
+  // <rtc-template block="activity">
   /***
    *
    * The initialize action (on CREATED->ALIVE transition)
-   * formaer rtc_init_entry() 
    *
    * @return RTC::ReturnCode_t
    * 
    * 
    */
-   virtual RTC::ReturnCode_t onInitialize();
+   RTC::ReturnCode_t onInitialize() override;
 
   /***
    *
    * The finalize action (on ALIVE->END transition)
-   * formaer rtc_exiting_entry()
    *
    * @return RTC::ReturnCode_t
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onFinalize();
+  // RTC::ReturnCode_t onFinalize() override;
 
   /***
    *
    * The startup action when ExecutionContext startup
-   * former rtc_starting_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -138,12 +133,11 @@ class FunctionGenerator
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onStartup(RTC::UniqueId ec_id);
+  // RTC::ReturnCode_t onStartup(RTC::UniqueId ec_id) override;
 
   /***
    *
    * The shutdown action when ExecutionContext stop
-   * former rtc_stopping_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -151,13 +145,12 @@ class FunctionGenerator
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onShutdown(RTC::UniqueId ec_id);
+  // RTC::ReturnCode_t onShutdown(RTC::UniqueId ec_id) override;
 
   /***
    * 初期化を行う。
    *
    * The activated action (Active state entry action)
-   * former rtc_active_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -165,13 +158,12 @@ class FunctionGenerator
    * 
    * 
    */
-   virtual RTC::ReturnCode_t onActivated(RTC::UniqueId ec_id);
+   RTC::ReturnCode_t onActivated(RTC::UniqueId ec_id) override;
 
   /***
    * 終了処理を行う。
    *
    * The deactivated action (Active state exit action)
-   * former rtc_active_exit()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -179,7 +171,7 @@ class FunctionGenerator
    * 
    * 
    */
-   virtual RTC::ReturnCode_t onDeactivated(RTC::UniqueId ec_id);
+   RTC::ReturnCode_t onDeactivated(RTC::UniqueId ec_id) override;
 
   /***
    * 各種パラメータの読込みと設定を行う。
@@ -189,7 +181,6 @@ class FunctionGenerator
    * たはファイルからデータを生成し、OutPortに出力する。
    *
    * The execution action that is invoked periodically
-   * former rtc_active_do()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -197,13 +188,12 @@ class FunctionGenerator
    * 
    * 
    */
-   virtual RTC::ReturnCode_t onExecute(RTC::UniqueId ec_id);
+   RTC::ReturnCode_t onExecute(RTC::UniqueId ec_id) override;
 
   /***
    * 終了処理を行う。
    *
    * The aborting action when main logic error occurred.
-   * former rtc_aborting_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -211,12 +201,11 @@ class FunctionGenerator
    * 
    * 
    */
-   virtual RTC::ReturnCode_t onAborting(RTC::UniqueId ec_id);
+   RTC::ReturnCode_t onAborting(RTC::UniqueId ec_id) override;
 
   /***
    *
    * The error action in ERROR state
-   * former rtc_error_do()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -224,12 +213,11 @@ class FunctionGenerator
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onError(RTC::UniqueId ec_id);
+  // RTC::ReturnCode_t onError(RTC::UniqueId ec_id) override;
 
   /***
    *
    * The reset action that is invoked resetting
-   * This is same but different the former rtc_init_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -237,12 +225,11 @@ class FunctionGenerator
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onReset(RTC::UniqueId ec_id);
+  // RTC::ReturnCode_t onReset(RTC::UniqueId ec_id) override;
   
   /***
    *
    * The state update action that is invoked after onExecute() action
-   * no corresponding operation exists in OpenRTm-aist-0.2.0
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -250,12 +237,11 @@ class FunctionGenerator
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onStateUpdate(RTC::UniqueId ec_id);
+  // RTC::ReturnCode_t onStateUpdate(RTC::UniqueId ec_id) override;
 
   /***
    *
    * The action that is invoked when execution context's rate is changed
-   * no corresponding operation exists in OpenRTm-aist-0.2.0
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -263,7 +249,8 @@ class FunctionGenerator
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onRateChanged(RTC::UniqueId ec_id);
+  // RTC::ReturnCode_t onRateChanged(RTC::UniqueId ec_id) override;
+  // </rtc-template>
 
 
  protected:
@@ -346,7 +333,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  InPort<RTC::TimedOctetSeq> m_iOctetSeqDataIn;
+  RTC::InPort<RTC::TimedOctetSeq> m_iOctetSeqDataIn;
   RTC::TimedShortSeq m_iShortSeqData;
   /*!
    * ファイルに保存するshort型整数値列データ。
@@ -354,7 +341,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  InPort<RTC::TimedShortSeq> m_iShortSeqDataIn;
+  RTC::InPort<RTC::TimedShortSeq> m_iShortSeqDataIn;
   RTC::TimedLongSeq m_iLongSeqData;
   /*!
    * ファイルに保存するlong型整数値列データ。
@@ -362,7 +349,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  InPort<RTC::TimedLongSeq> m_iLongSeqDataIn;
+  RTC::InPort<RTC::TimedLongSeq> m_iLongSeqDataIn;
   RTC::TimedFloatSeq m_iFloatSeqData;
   /*!
    * ファイルに保存するfloat型実数値列データ。
@@ -370,7 +357,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  InPort<RTC::TimedFloatSeq> m_iFloatSeqDataIn;
+  RTC::InPort<RTC::TimedFloatSeq> m_iFloatSeqDataIn;
   RTC::TimedDoubleSeq m_iDoubleSeqData;
   /*!
    * ファイルに保存するdouble型実数値列データ。
@@ -378,7 +365,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  InPort<RTC::TimedDoubleSeq> m_iDoubleSeqDataIn;
+  RTC::InPort<RTC::TimedDoubleSeq> m_iDoubleSeqDataIn;
   
   // </rtc-template>
 
@@ -392,7 +379,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  OutPort<RTC::TimedOctetSeq> m_oOctetSeqDataOut;
+  RTC::OutPort<RTC::TimedOctetSeq> m_oOctetSeqDataOut;
   RTC::TimedShortSeq m_oShortSeqData;
   /*!
    * short型整数値列の出力データ。
@@ -400,7 +387,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  OutPort<RTC::TimedShortSeq> m_oShortSeqDataOut;
+  RTC::OutPort<RTC::TimedShortSeq> m_oShortSeqDataOut;
   RTC::TimedLongSeq m_oLongSeqData;
   /*!
    * long型整数値列の出力データ。
@@ -408,7 +395,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  OutPort<RTC::TimedLongSeq> m_oLongSeqDataOut;
+  RTC::OutPort<RTC::TimedLongSeq> m_oLongSeqDataOut;
   RTC::TimedFloatSeq m_oFloatSeqData;
   /*!
    * float型実数値列の出力データ。
@@ -416,7 +403,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  OutPort<RTC::TimedFloatSeq> m_oFloatSeqDataOut;
+  RTC::OutPort<RTC::TimedFloatSeq> m_oFloatSeqDataOut;
   RTC::TimedDoubleSeq m_oDoubleSeqData;
   /*!
    * double型実数値列の出力データ。
@@ -424,7 +411,7 @@ class FunctionGenerator
    * - Number: データに依存
    * - Unit: データに依存
    */
-  OutPort<RTC::TimedDoubleSeq> m_oDoubleSeqDataOut;
+  RTC::OutPort<RTC::TimedDoubleSeq> m_oDoubleSeqDataOut;
   
   // </rtc-template>
 
@@ -443,22 +430,23 @@ class FunctionGenerator
   
   // </rtc-template>
 
+
  private:
   // <rtc-template block="private_attribute">
-	 std::string cmd; //current command
-	 int operation_mode; //0:function output mode, 1:file output mode
+	std::string cmd; //current command
+	int operation_mode; //0:function output mode, 1:file output mode
 
-	 //for function output mode
-	 MathFunctionGenerator mfg; //math function generator
+	//for function output mode
+	MathFunctionGenerator mfg; //math function generator
 
-	 //for file output mode
-	 //save file
-	 std::ofstream outfile; //file for storing input data
-	 char s_file_mode; //save file mode - w:overwrite, a:append
-	 std::string s_file_name; //name of the save file
-	 //load file
-	 std::ifstream infile; //file for loading previously stored data
-	 std::string l_filename; //name of the load file
+	//for file output mode
+	//save file
+	std::ofstream outfile; //file for storing input data
+	char s_file_mode; //save file mode - w:overwrite, a:append
+	std::string s_file_name; //name of the save file
+	//load file
+	std::ifstream infile; //file for loading previously stored data
+	std::string l_filename; //name of the load file
 
   // </rtc-template>
 

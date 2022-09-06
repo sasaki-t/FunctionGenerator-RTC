@@ -1,15 +1,9 @@
-cmake_minimum_required(VERSION 2.8)
-if(POLICY CMP0046)
- cmake_policy(SET CMP0046 OLD)
-endif()
-if(POLICY CMP0048)
-  cmake_policy(SET CMP0048 OLD)
-endif()
+cmake_minimum_required(VERSION 3.5.1)
 
 project(FunctionGenerator)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 include("${PROJECT_SOURCE_DIR}/cmake/utils.cmake")
-set(PROJECT_VERSION 1.2.0 CACHE STRING "FunctionGenerator version")
+set(PROJECT_VERSION 1.3.0 CACHE STRING "FunctionGenerator version")
 set(UPGRADE_GUID "")
 DISSECT_VERSION()
 set(PROJECT_SHORT_VER ${PROJECT_VERSION_MAJOR}${PROJECT_VERSION_MINOR}${PROJECT_VERSION_REVISION})
@@ -18,7 +12,7 @@ set(PROJECT_VENDOR "TakeshiSasaki")
 set(PROJECT_MAINTAINER "佐々木毅 (Takeshi SASAKI) <br/>sasaki-t(_at_)ieee.org")
 set(PROJECT_TYPE "c++/generic")
 
-find_package(OpenRTM)
+find_package(OpenRTM REQUIRED)
 set(RTM_VER ${OPENRTM_VERSION})
 set(RTM_SHORT_VER ${OPENRTM_VERSION_MAJOR}${OPENRTM_VERSION_MINOR}${OPENRTM_VERSION_PATCH})
 
@@ -83,7 +77,7 @@ ADD_CUSTOM_TARGET (${PROJECT_NAME}_uninstall "${CMAKE_COMMAND}" -P
 
 #option(BUILD_EXAMPLES "Build and install examples" OFF)
 option(BUILD_DOCUMENTATION "Build the documentation" OFF)
-#option(BUILD_TESTS "Build the tests" OFF)
+option(BUILD_TESTS "Build the tests" OFF)
 #option(BUILD_TOOLS "Build the tools" OFF)
 option(BUILD_IDL "Build and install idl" ON)
 option(BUILD_SOURCES "Build and install sources" OFF)
@@ -104,18 +98,18 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 # Set up installation directories
 if(WIN32)
-   set(OPENRTM_SHARE_PREFIX "OpenRTM-aist/${RTM_VER}/Components/${PROJECT_TYPE}")
+   set(RTM_COMPONENT_PREFIX "Components/${PROJECT_TYPE}")
+   set(OPENRTM_SHARE_PREFIX "OpenRTM-aist/${RTM_VER}/${RTM_COMPONENT_PREFIX}")
    set(INSTALL_PREFIX ${PROJECT_NAME})
    if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-      set(CMAKE_INSTALL_PREFIX "${OPENRTM_DIR}Components/${PROJECT_TYPE}/${PROJECT_NAME}" CACHE PATH "..." FORCE)
+      set(CMAKE_INSTALL_PREFIX "${OPENRTM_DIR}/${RTM_COMPONENT_PREFIX}" CACHE PATH "..." FORCE)
+   else()
+      set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/${OPENRTM_SHARE_PREFIX}")
    endif()
 else(WIN32)
    set(OPENRTM_SHARE_PREFIX "share/openrtm-${OPENRTM_VERSION_MAJOR}.${OPENRTM_VERSION_MINOR}")
    set(INSTALL_PREFIX "${OPENRTM_SHARE_PREFIX}/components/${PROJECT_TYPE}/${PROJECT_NAME}")
 endif(WIN32)
-       
-# Universal settings
-#enable_testing()
 
 # Subdirectories
 add_subdirectory(cmake)
@@ -131,13 +125,21 @@ if(BUILD_IDL)
     add_subdirectory(idl)
 endif(BUILD_IDL)
 
+file(GLOB IDL_FILES "${CMAKE_CURRENT_SOURCE_DIR}/idl/*.idl")
+if(IDL_FILES)
+    install(FILES ${IDL_FILES} DESTINATION ${INSTALL_PREFIX}/idl
+        COMPONENT component)
+endif(IDL_FILES)
+
 add_subdirectory(include)
 MAP_ADD_STR(headers  "include/" comp_hdrs)
 add_subdirectory(src)
 
-#if(BUILD_TESTS)
-#    add_subdirectory(test)
-#endif(BUILD_TESTS)
+if(BUILD_TESTS)
+    # Universal settings
+    enable_testing()
+    add_subdirectory(test)
+endif(BUILD_TESTS)
 
 #if(BUILD_TOOLS)
 #    add_subdirectory(tools)
@@ -149,11 +151,8 @@ if(BUILD_SOURCES)
 endif(BUILD_SOURCES)
 
 # Package creation
-# By default, do not warn when built on machines using only VS Express:
-IF(NOT DEFINED CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS)
-SET(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS ON)
-ENDIF()
-include(InstallRequiredSystemLibraries)
+# By default, do not include the system runtime library.
+#include(InstallRequiredSystemLibraries)
 set(PROJECT_EXECUTABLES ${PROJECT_NAME}Comp
     "${PROJECT_NAME}Comp.exe")
 
@@ -165,5 +164,3 @@ configure_file("${PROJECT_SOURCE_DIR}/cmake/cpack_options.cmake.in"
 set(CPACK_PROJECT_CONFIG_FILE ${cpack_options})
 include(${CPACK_PROJECT_CONFIG_FILE})
 include(CPack)
-
-

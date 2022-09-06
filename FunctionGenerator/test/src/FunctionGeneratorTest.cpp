@@ -1,25 +1,29 @@
 ﻿// -*- C++ -*-
+// <rtc-template block="description">
 /*!
  * @file  FunctionGeneratorTest.cpp
- * @brief Function generator compornent for generating input data
- * @date $Date$
+ * @brief Function generator compornent for generating input data (test code)
  *
  * @author 佐々木毅 (Takeshi SASAKI)
  * sasaki-t(_at_)ieee.org
  *
- * $Id$
  */
+// </rtc-template>
 
 #include "FunctionGeneratorTest.h"
 
 // Module specification
 // <rtc-template block="module_spec">
+#if RTM_MAJOR_VERSION >= 2
+static const char* const functiongenerator_spec[] =
+#else
 static const char* functiongenerator_spec[] =
+#endif
   {
     "implementation_id", "FunctionGeneratorTest",
     "type_name",         "FunctionGeneratorTest",
     "description",       "Function generator compornent for generating input data",
-    "version",           "1.2.0",
+    "version",           "1.3.0",
     "vendor",            "TakeshiSasaki",
     "category",          "generic",
     "activity_type",     "PERIODIC",
@@ -49,7 +53,7 @@ static const char* functiongenerator_spec[] =
     "conf.__widget__.saveFileName", "text",
     "conf.__widget__.outputFunctionOrLoadFileName", "text",
     // Constraints
-    "conf.__constraints__.saveFileMode", "(a, w)",
+    "conf.__constraints__.saveFileMode", "(a,w)",
 
     "conf.__type__.xMin", "double",
     "conf.__type__.xMax", "double",
@@ -72,16 +76,16 @@ static const char* functiongenerator_spec[] =
 FunctionGeneratorTest::FunctionGeneratorTest(RTC::Manager* manager)
     // <rtc-template block="initializer">
   : RTC::DataFlowComponentBase(manager),
-    m_iOctetSeqDataIn("iOctetSeqData", m_iOctetSeqData),
-    m_iShortSeqDataIn("iShortSeqData", m_iShortSeqData),
-    m_iLongSeqDataIn("iLongSeqData", m_iLongSeqData),
-    m_iFloatSeqDataIn("iFloatSeqData", m_iFloatSeqData),
-    m_iDoubleSeqDataIn("iDoubleSeqData", m_iDoubleSeqData),
-    m_oOctetSeqDataOut("oOctetSeqData", m_oOctetSeqData),
-    m_oShortSeqDataOut("oShortSeqData", m_oShortSeqData),
-    m_oLongSeqDataOut("oLongSeqData", m_oLongSeqData),
-    m_oFloatSeqDataOut("oFloatSeqData", m_oFloatSeqData),
-    m_oDoubleSeqDataOut("oDoubleSeqData", m_oDoubleSeqData)
+    m_iOctetSeqDataOut("iOctetSeqData", m_iOctetSeqData),
+    m_iShortSeqDataOut("iShortSeqData", m_iShortSeqData),
+    m_iLongSeqDataOut("iLongSeqData", m_iLongSeqData),
+    m_iFloatSeqDataOut("iFloatSeqData", m_iFloatSeqData),
+    m_iDoubleSeqDataOut("iDoubleSeqData", m_iDoubleSeqData),
+    m_oOctetSeqDataIn("oOctetSeqData", m_oOctetSeqData),
+    m_oShortSeqDataIn("oShortSeqData", m_oShortSeqData),
+    m_oLongSeqDataIn("oLongSeqData", m_oLongSeqData),
+    m_oFloatSeqDataIn("oFloatSeqData", m_oFloatSeqData),
+    m_oDoubleSeqDataIn("oDoubleSeqData", m_oDoubleSeqData)
 
     // </rtc-template>
 {
@@ -145,25 +149,23 @@ RTC::ReturnCode_t FunctionGeneratorTest::onFinalize()
 }
 */
 
-/*
-RTC::ReturnCode_t FunctionGeneratorTest::onStartup(RTC::UniqueId ec_id)
-{
-  return RTC::RTC_OK;
-}
-*/
 
-/*
-RTC::ReturnCode_t FunctionGeneratorTest::onShutdown(RTC::UniqueId ec_id)
-{
-  return RTC::RTC_OK;
-}
-*/
+//RTC::ReturnCode_t FunctionGeneratorTest::onStartup(RTC::UniqueId /*ec_id*/)
+//{
+//  return RTC::RTC_OK;
+//}
+
+
+//RTC::ReturnCode_t FunctionGeneratorTest::onShutdown(RTC::UniqueId /*ec_id*/)
+//{
+//  return RTC::RTC_OK;
+//}
 
 /*!
  * 初期化を行う。
  */
 
-RTC::ReturnCode_t FunctionGeneratorTest::onActivated(RTC::UniqueId ec_id)
+RTC::ReturnCode_t FunctionGeneratorTest::onActivated(RTC::UniqueId /*ec_id*/)
 {
   return RTC::RTC_OK;
 }
@@ -172,7 +174,7 @@ RTC::ReturnCode_t FunctionGeneratorTest::onActivated(RTC::UniqueId ec_id)
  * 終了処理を行う。
  */
 
-RTC::ReturnCode_t FunctionGeneratorTest::onDeactivated(RTC::UniqueId ec_id)
+RTC::ReturnCode_t FunctionGeneratorTest::onDeactivated(RTC::UniqueId /*ec_id*/)
 {
   return RTC::RTC_OK;
 }
@@ -185,7 +187,7 @@ RTC::ReturnCode_t FunctionGeneratorTest::onDeactivated(RTC::UniqueId ec_id)
  * はファイルからデータを生成し、OutPortに出力する。
  */
 
-RTC::ReturnCode_t FunctionGeneratorTest::onExecute(RTC::UniqueId ec_id)
+RTC::ReturnCode_t FunctionGeneratorTest::onExecute(RTC::UniqueId /*ec_id*/)
 {
   return RTC::RTC_OK;
 }
@@ -194,39 +196,40 @@ RTC::ReturnCode_t FunctionGeneratorTest::onExecute(RTC::UniqueId ec_id)
  * 終了処理を行う。
  */
 
-RTC::ReturnCode_t FunctionGeneratorTest::onAborting(RTC::UniqueId ec_id)
+RTC::ReturnCode_t FunctionGeneratorTest::onAborting(RTC::UniqueId /*ec_id*/)
 {
   return RTC::RTC_OK;
 }
 
-/*
-RTC::ReturnCode_t FunctionGeneratorTest::onError(RTC::UniqueId ec_id)
-{
-  return RTC::RTC_OK;
-}
-*/
 
-/*
-RTC::ReturnCode_t FunctionGeneratorTest::onReset(RTC::UniqueId ec_id)
-{
-  return RTC::RTC_OK;
-}
-*/
+//RTC::ReturnCode_t FunctionGeneratorTest::onError(RTC::UniqueId /*ec_id*/)
+//{
+//  return RTC::RTC_OK;
+//}
 
-/*
-RTC::ReturnCode_t FunctionGeneratorTest::onStateUpdate(RTC::UniqueId ec_id)
-{
-  return RTC::RTC_OK;
-}
-*/
 
-/*
-RTC::ReturnCode_t FunctionGeneratorTest::onRateChanged(RTC::UniqueId ec_id)
-{
-  return RTC::RTC_OK;
-}
-*/
+//RTC::ReturnCode_t FunctionGeneratorTest::onReset(RTC::UniqueId /*ec_id*/)
+//{
+//  return RTC::RTC_OK;
+//}
 
+
+//RTC::ReturnCode_t FunctionGeneratorTest::onStateUpdate(RTC::UniqueId /*ec_id*/)
+//{
+//  return RTC::RTC_OK;
+//}
+
+
+//RTC::ReturnCode_t FunctionGeneratorTest::onRateChanged(RTC::UniqueId /*ec_id*/)
+//{
+//  return RTC::RTC_OK;
+//}
+
+
+bool FunctionGeneratorTest::runTest()
+{
+    return true;
+}
 
 
 extern "C"
@@ -240,6 +243,4 @@ extern "C"
                              RTC::Delete<FunctionGeneratorTest>);
   }
   
-};
-
-
+}

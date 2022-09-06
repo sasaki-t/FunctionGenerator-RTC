@@ -1,14 +1,14 @@
 ﻿// -*- C++ -*-
+// <rtc-template block="description">
 /*!
  * @file FunctionGeneratorComp.cpp
  * @brief Standalone component
- * @date $Date$
  *
  * @author 佐々木毅 (Takeshi SASAKI)
  * sasaki-t(_at_)ieee.org
  *
- * $Id$
  */
+// </rtc-template>
 
 #include <rtm/Manager.h>
 #include <iostream>
@@ -16,6 +16,40 @@
 #include <stdlib.h>
 #include "FunctionGenerator.h"
 
+class OverwriteInstanceName
+  : public RTM::RtcLifecycleActionListener
+{
+public:
+  OverwriteInstanceName(int argc, char** argv)
+    : m_name(""), m_count(0)
+  {
+    for (size_t i = 0; i < (size_t)argc; ++i)
+      {
+        std::string opt = argv[i];
+        if (opt.find("--instance_name=") == std::string::npos) { continue; }
+
+        coil::replaceString(opt, "--instance_name=", "");
+        if (opt.empty()) { continue; }
+
+        m_name = opt;
+      }
+  }
+  virtual ~OverwriteInstanceName() override {}
+  virtual void preCreate(std::string& args) override
+  {
+    if (m_count != 0 || m_name.empty()) { return; }
+    args = args + "?instance_name=" + m_name;
+    ++m_count;
+  }
+  virtual void postCreate(RTC::RTObject_impl*) override {}
+  virtual void preConfigure(coil::Properties&) override {}
+  virtual void postConfigure(coil::Properties&) override {}
+  virtual void preInitialize() override {}
+  virtual void postInitialize() override {}
+private:
+  std::string m_name;
+  int32_t m_count;
+};
 
 void MyModuleInit(RTC::Manager* manager)
 {
@@ -25,7 +59,7 @@ void MyModuleInit(RTC::Manager* manager)
   // Create a component
   comp = manager->createComponent("FunctionGenerator");
 
-  if (comp==NULL)
+  if (comp==nullptr)
   {
     std::cerr << "Component create failed." << std::endl;
     abort();
@@ -78,9 +112,7 @@ int main (int argc, char** argv)
 {
   RTC::Manager* manager;
   manager = RTC::Manager::init(argc, argv);
-
-  // Initialize manager
-  manager->init(argc, argv);
+  manager->addRtcLifecycleActionListener(new OverwriteInstanceName(argc, argv), true);
 
   // Set module initialization proceduer
   // This procedure will be invoked in activateManager() function.
